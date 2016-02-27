@@ -10,7 +10,7 @@ var main = require("../lib/main.js");
 
 
 describe("test function compareNum()", function(){
-    sinon.spy(console, 'log');
+    //sinon.spy(console, 'log');
 
     it("should return 4A0B when the number and position are all same", function(){
       expect('4A0B').to.equal(main.compareNum(5678,5678));
@@ -33,12 +33,40 @@ describe("test function compareNum()", function(){
       expect('0A2B').to.equal(main.compareNum(1234,5621));
     });
 
-    /*it("测试用例2", function(){
+});
+describe("test function answerGenerator()", function(){
+  it("should return generate a right num when using answerGenerator", function(){
+    expect('generate a right num').to.equal(main.testNum(main.answerGenerator()));
+    expect('generate a right num').to.equal(main.testNum(main.answerGenerator()));
+  });
+  it("should return generate a wrong num when inputNum not a num", function(){
+    expect('generate a wrong num').to.equal(main.testNum('hello'));
+    expect('generate a wrong num').to.equal(main.testNum('world'));
+  });
+  it("should return generate a wrong num when inputNum not four length", function(){
+    expect('generate a wrong num').to.equal(main.testNum(12345));
+    expect('generate a wrong num').to.equal(main.testNum(4567889));
+  });
+  it("should return generate a wrong num when inputNum has repetition", function(){
+    expect('generate a wrong num').to.equal(main.testNum(1123));
+    expect('generate a wrong num').to.equal(main.testNum(5676));
+  });
 
-        main();
-        var result = _.flatten(console.log.args).join("\n");
-        var expect_string = '';
+});
 
-        expect(expect_string).to.equal(result);
-    });*/
+describe("mock test guessGame", function(){
+  it("should call with 1234 and print the result", function(){
+    sinon.spy(console, 'log');
+    //将guessGame()执行结果用‘1234’代替
+    sinon.stub(main, 'guessGame').returns('1234');
+    main.mockTestGuess();
+
+    expect(main.guessGame).to.have.been.calledWith(1234);
+
+    var result = _.flatten(console.log.args).join("\n");
+    var expect_string = "1234";
+    expect(expect_string).to.equal(result);
+
+  });
+
 });
